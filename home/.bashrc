@@ -115,5 +115,10 @@ elif [ -f ~/.homesick/repos/liquidprompt/liquidprompt ]; then
 	source ~/.homesick/repos/liquidprompt/liquidprompt
 fi
 
+# Make Homeshick available
+if [ -f ~/.homesick/repos/homeshick/homeshick.sh ]; then
+    source ~/.homesick/repos/homeshick/homeshick.sh
+fi
+
 ## Run neofetch as our MOTD on login
 neofetch
