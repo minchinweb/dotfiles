@@ -2,6 +2,7 @@
 # ~/.bashrc
 #
 
+# if we're on a non-interactive session, bail here!
 [[ $- != *i* ]] && return
 
 colors() {
@@ -69,8 +70,10 @@ alias wget='wget -C'
 # only run 4 pings (like Windows, rather than forever)
 alias ping='ping -c 4'
 
-# set editor to vi (default was nano)
-export EDITOR=/usr/bin/vi
+# set editor to vi (default was nano on Arch/Majaro)
+if [ -f /usr/bin/vi ]; then
+	export EDITOR=/usr/bin/vi
+fi
 
 # Add Python's user-installed packages bin folder to PATH
 pathprepend '~/.local/bin/'
@@ -97,20 +100,20 @@ fi
 # load before Liquid Prompt
 if [ -f ~/Code/bash-sensible/sensible.bash ]; then
 	source ~/Code/bash-sensible/sensible.bash
-elif [ -f ~/.config/sensible.bash ]; then
-	source ~/.config/sensible.bash
+elif [ -f ~/.homesick/repos/bash-sensible/sensible.bash ]; then
+	source ~/.homesick/repos/bash-sensible/sensible.bash
 fi
 
 # paths to look for when changing directory
-export CDPATH=".:~:~/Code"
+CDPATH=".:~:~/Code"
 
 
 # Use Liquid Prompt -- https://github.com/nojhan/liquidprompt
 if [ -f ~/Code/liquidprompt/liquidprompt ]; then
-	[[ $- = *i* ]] && source ~/Code/liquidprompt/liquidprompt
-elif [ -f ~/.config/liquidprompt/liquidprompt ]; then
-	[[ $- = *i* ]] && source ~/.config/liquidprompt/liquidprompt
+	source ~/Code/liquidprompt/liquidprompt
+elif [ -f ~/.homesick/repos/liquidprompt/liquidprompt ]; then
+	source ~/.homesick/repos/liquidprompt/liquidprompt
 fi
 
 ## Run neofetch as our MOTD on login
-[[ $- = *i* ]] && neofetch
+neofetch
