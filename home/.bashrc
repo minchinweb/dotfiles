@@ -1,0 +1,116 @@
+#
+# ~/.bashrc
+#
+
+[[ $- != *i* ]] && return
+
+colors() {
+	local fgc bgc vals seq0
+
+	printf "Color escapes are %s\n" '\e[${value};...;${value}m'
+	printf "Values 30..37 are \e[33mforeground colors\e[m\n"
+	printf "Values 40..47 are \e[43mbackground colors\e[m\n"
+	printf "Value  1 gives a  \e[1mbold-faced look\e[m\n\n"
+
+	# foreground colors
+	for fgc in {30..37}; do
+		# background colors
+		for bgc in {40..47}; do
+			fgc=${fgc#37} # white
+			bgc=${bgc#40} # black
+
+			vals="${fgc:+$fgc;}${bgc}"
+			vals=${vals%%;}
+
+			seq0="${vals:+\e[${vals}m}"
+			printf "  %-9s" "${seq0:-(default)}"
+			printf " ${seq0}TEXT\e[m"
+			printf " \e[${vals:+${vals+$vals;}}1mBOLD\e[m"
+		done
+		echo; echo
+	done
+}
+
+
+#
+# Personal Additions
+
+## Path Additions
+# https://superuser.com/a/753948/447564
+pathappend() {
+  for ARG in "$@"
+  do
+  	ARG="${ARG/#\~/$HOME}"  # expand ~ into Home
+    if [ -d "$ARG" ] && [[ ":$PATH:" != *":$ARG:"* ]]; then
+        PATH="${PATH:+"$PATH:"}$ARG"
+    fi
+  done
+}
+
+pathprepend() {
+  	for ((i=$#; i>0; i--)); 
+  	do
+    	ARG=${!i}
+		ARG="${ARG/#\~/$HOME}"  # expand ~ into Home
+    	if [ -d "$ARG" ] && [[ ":$PATH:" != *":$ARG:"* ]]; then
+        	PATH="$ARG${PATH:+":$PATH"}"
+    	fi
+  	done
+}
+
+# Reload this configuration file
+alias refresh-env='source ~/.bashrc && echo "Reloaded Bash Configuration"'
+# sort environmental variables
+alias env='env | sort'
+# automatically create parent directories as needed
+alias mkdir='mkdir -pv'
+# run wget in 'continue' mode (auto pick up broken/half-finished downloads)
+alias wget='wget -C'
+# only run 4 pings (like Windows, rather than forever)
+alias ping='ping -c 4'
+
+# set editor to vi (default was nano)
+export EDITOR=/usr/bin/vi
+
+# Add Python's user-installed packages bin folder to PATH
+pathprepend '~/.local/bin/'
+pathprepend '~/bin'
+
+# Use the system config if it exists
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc        # --> Read /etc/bashrc, if present.
+elif [ -f /etc/bash.bashrc ]; then
+    . /etc/bash.bashrc   # --> Read /etc/bash.bashrc, if present.
+fi
+
+[[ -f ~/.extend.bashrc ]] && . ~/.extend.bashrc
+
+# Use Bash completion, if installed
+if [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+fi
+
+[ -r /usr/share/bash-completion/bash_completion   ] && . /usr/share/bash-completion/bash_completion
+
+## Use Sensible Bash
+# https://github.com/mrzool/bash-sensible
+# load before Liquid Prompt
+if [ -f ~/Code/bash-sensible/sensible.bash ]; then
+	source ~/Code/bash-sensible/sensible.bash
+elif [ -f ~/.config/sensible.bash ]; then
+	source ~/.config/sensible.bash
+fi
+
+# paths to look for when changing directory
+export CDPATH=".:~:~/Code"
+
+
+# Use Liquid Prompt -- https://github.com/nojhan/liquidprompt
+if [ -f ~/Code/liquidprompt/liquidprompt ]; then
+	[[ $- = *i* ]] && source ~/Code/liquidprompt/liquidprompt
+elif [ -f ~/.config/liquidprompt/liquidprompt ]; then
+	[[ $- = *i* ]] && source ~/.config/liquidprompt/liquidprompt
+fi
+
+## Run neofetch as our MOTD on login
+[[ $- = *i* ]] && neofetch
