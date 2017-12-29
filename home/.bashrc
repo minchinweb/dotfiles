@@ -106,10 +106,6 @@ elif [ -f ~/.homesick/repos/bash-sensible/sensible.bash ]; then
 	source ~/.homesick/repos/bash-sensible/sensible.bash
 fi
 
-# paths to look for when changing directory
-CDPATH=".:~:~/Code"
-
-
 # Use Liquid Prompt -- https://github.com/nojhan/liquidprompt
 if [ -f ~/Code/liquidprompt/liquidprompt ]; then
 	source ~/Code/liquidprompt/liquidprompt
