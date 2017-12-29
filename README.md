@@ -1,7 +1,7 @@
 Dotfiles
 ========
 
-This is my collection of dotfiles, managed by [homeshick](https://github.com/andsens/homeshick)
+This is my collection of dotfiles, managed by [homeshick](https://github.com/andsens/homeshick).
 
 Quickstart
 ----------
