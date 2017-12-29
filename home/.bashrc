@@ -69,6 +69,8 @@ alias mkdir='mkdir -pv'
 alias wget='wget -C'
 # only run 4 pings (like Windows, rather than forever)
 alias ping='ping -c 4'
+# when removing files, do so interactively
+alias rm='rm -i'
 
 # set editor to vi (default was nano on Arch/Majaro)
 if [ -f /usr/bin/vi ]; then
@@ -118,7 +120,12 @@ fi
 # Make Homeshick available
 if [ -f ~/.homesick/repos/homeshick/homeshick.sh ]; then
     source ~/.homesick/repos/homeshick/homeshick.sh
+	source ~/.homesick/repos/homeshick/completions/homeshick-completion.bash
+fi
+
+if [ -f ~/.local.bashrc ]; then
+	source ~/.local.bashrc
 fi
 
 ## Run neofetch as our MOTD on login
-neofetch
+# neofetch
