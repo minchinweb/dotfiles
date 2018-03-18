@@ -16,7 +16,7 @@ Make *homeshick* command available:
 
     source "$HOME/.homesick/repos/homeshick/homeshick.sh"
 
-On termux, fix shebang ((explation)[https://wiki.termux.com/wiki/Differences_from_Linux]):
+On termux, fix shebang ([explation](https://wiki.termux.com/wiki/Differences_from_Linux)):
 
     cd "$HOME/.homesick/repos/homeshick/bin"
     termux-fix-shebang homeshick
