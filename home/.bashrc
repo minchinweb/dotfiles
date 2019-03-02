@@ -123,5 +123,9 @@ if [ -f ~/.local.bashrc ]; then
 	source ~/.local.bashrc
 fi
 
+## So as not to be disturbed by Ctrl-S or Ctrl-Q in terminals
+# https://unix.stackexchange.com/questions/72086/ctrl-s-hang-terminal-emulator
+stty -ixon
+
 ## Run neofetch as our MOTD on login
 # neofetch
