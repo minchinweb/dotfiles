@@ -69,7 +69,7 @@ alias env='env | sort'
 # automatically create parent directories as needed
 alias mkdir='mkdir -pv'
 # run wget in 'continue' mode (auto pick up broken/half-finished downloads)
-alias wget='wget -C'
+alias wget='wget -c'
 # only run 4 pings (like Windows, rather than forever)
 alias ping='ping -c 4'
 # when removing files, do so interactively
