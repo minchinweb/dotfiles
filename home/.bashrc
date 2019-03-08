@@ -5,6 +5,8 @@
 # if we're on a non-interactive session, bail here!
 [[ $- != *i* ]] && return
 
+#
+# Function to display color table
 colors() {
 	local fgc bgc vals seq0
 
@@ -36,7 +38,8 @@ colors() {
 #
 # Personal Additions
 
-## Path Additions
+#
+## Path Additions Functions
 # https://superuser.com/a/753948/447564
 pathappend() {
   for ARG in "$@"

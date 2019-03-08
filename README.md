@@ -32,6 +32,10 @@ Install machine-specific *castle* (pick one) (these all provide `.local.bashrc` 
     homeshick clone https://github.com/MinchinWeb/dotfiles-honfleur.git
     homeshick clone https://github.com/MinchinWeb/dotfiles-ellesmereilsand.git
     homeshick clone https://github.com/MinchinWeb/dotfiles-termux.git
+    homeshick clone https://github.com/MinchinWeb/dotfiles-sorbonne.git
+
+(`Honfleur` is a machine running Manjuro, `EllesmereIsland` is a machine
+running Synology's DSM, `Sorbonne` is a machine running Ubuntu.)
 
 Link up everything (if this doesn't happen automatically on installation):
 
