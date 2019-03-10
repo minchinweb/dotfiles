@@ -93,6 +93,10 @@ fi
 
 [[ -f ~/.extend.bashrc ]] && . ~/.extend.bashrc
 
+if [ -f ~/.local.bashrc ]; then
+    source ~/.local.bashrc
+fi
+
 # Use Bash completion, if installed
 if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
@@ -120,10 +124,6 @@ fi
 if [ -f ~/.homesick/repos/homeshick/homeshick.sh ]; then
     source ~/.homesick/repos/homeshick/homeshick.sh
     source ~/.homesick/repos/homeshick/completions/homeshick-completion.bash
-fi
-
-if [ -f ~/.local.bashrc ]; then
-    source ~/.local.bashrc
 fi
 
 ## So as not to be disturbed by Ctrl-S or Ctrl-Q in terminals
