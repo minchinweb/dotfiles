@@ -8,30 +8,30 @@
 #
 # Function to display color table
 colors() {
-	local fgc bgc vals seq0
+    local fgc bgc vals seq0
 
-	printf "Color escapes are %s\n" '\e[${value};...;${value}m'
-	printf "Values 30..37 are \e[33mforeground colors\e[m\n"
-	printf "Values 40..47 are \e[43mbackground colors\e[m\n"
-	printf "Value  1 gives a  \e[1mbold-faced look\e[m\n\n"
+    printf "Color escapes are %s\n" '\e[${value};...;${value}m'
+    printf "Values 30..37 are \e[33mforeground colors\e[m\n"
+    printf "Values 40..47 are \e[43mbackground colors\e[m\n"
+    printf "Value  1 gives a  \e[1mbold-faced look\e[m\n\n"
 
-	# foreground colors
-	for fgc in {30..37}; do
-		# background colors
-		for bgc in {40..47}; do
-			fgc=${fgc#37} # white
-			bgc=${bgc#40} # black
+    # foreground colors
+    for fgc in {30..37}; do
+        # background colors
+        for bgc in {40..47}; do
+            fgc=${fgc#37} # white
+            bgc=${bgc#40} # black
 
-			vals="${fgc:+$fgc;}${bgc}"
-			vals=${vals%%;}
+            vals="${fgc:+$fgc;}${bgc}"
+            vals=${vals%%;}
 
-			seq0="${vals:+\e[${vals}m}"
-			printf "  %-9s" "${seq0:-(default)}"
-			printf " ${seq0}TEXT\e[m"
-			printf " \e[${vals:+${vals+$vals;}}1mBOLD\e[m"
-		done
-		echo; echo
-	done
+            seq0="${vals:+\e[${vals}m}"
+            printf "  %-9s" "${seq0:-(default)}"
+            printf " ${seq0}TEXT\e[m"
+            printf " \e[${vals:+${vals+$vals;}}1mBOLD\e[m"
+        done
+        echo; echo
+    done
 }
 
 
@@ -44,7 +44,7 @@ colors() {
 pathappend() {
   for ARG in "$@"
   do
-  	ARG="${ARG/#\~/$HOME}"  # expand ~ into Home
+      ARG="${ARG/#\~/$HOME}"  # expand ~ into Home
     if [ -d "$ARG" ] && [[ ":$PATH:" != *":$ARG:"* ]]; then
         PATH="${PATH:+"$PATH:"}$ARG"
     fi
@@ -52,14 +52,14 @@ pathappend() {
 }
 
 pathprepend() {
-  	for ((i=$#; i>0; i--)); 
-  	do
-    	ARG=${!i}
-		ARG="${ARG/#\~/$HOME}"  # expand ~ into Home
-    	if [ -d "$ARG" ] && [[ ":$PATH:" != *":$ARG:"* ]]; then
-        	PATH="$ARG${PATH:+":$PATH"}"
-    	fi
-  	done
+      for ((i=$#; i>0; i--)); 
+      do
+        ARG=${!i}
+        ARG="${ARG/#\~/$HOME}"  # expand ~ into Home
+        if [ -d "$ARG" ] && [[ ":$PATH:" != *":$ARG:"* ]]; then
+            PATH="$ARG${PATH:+":$PATH"}"
+        fi
+      done
 }
 
 # Reload this configuration file
@@ -77,7 +77,7 @@ alias rm='rm -i'
 
 # set editor to vi (default was nano on Arch/Majaro)
 if [ -f /usr/bin/vi ]; then
-	export EDITOR=/usr/bin/vi
+    export EDITOR=/usr/bin/vi
 fi
 
 # Add Python's user-installed packages bin folder to PATH
@@ -104,26 +104,26 @@ fi
 # https://github.com/mrzool/bash-sensible
 # load before Liquid Prompt
 if [ -f ~/Code/bash-sensible/sensible.bash ]; then
-	source ~/Code/bash-sensible/sensible.bash
+    source ~/Code/bash-sensible/sensible.bash
 elif [ -f ~/.homesick/repos/bash-sensible/sensible.bash ]; then
-	source ~/.homesick/repos/bash-sensible/sensible.bash
+    source ~/.homesick/repos/bash-sensible/sensible.bash
 fi
 
 # Use Liquid Prompt -- https://github.com/nojhan/liquidprompt
 if [ -f ~/Code/liquidprompt/liquidprompt ]; then
-	source ~/Code/liquidprompt/liquidprompt
+    source ~/Code/liquidprompt/liquidprompt
 elif [ -f ~/.homesick/repos/liquidprompt/liquidprompt ]; then
-	source ~/.homesick/repos/liquidprompt/liquidprompt
+    source ~/.homesick/repos/liquidprompt/liquidprompt
 fi
 
 # Make Homeshick available
 if [ -f ~/.homesick/repos/homeshick/homeshick.sh ]; then
     source ~/.homesick/repos/homeshick/homeshick.sh
-	source ~/.homesick/repos/homeshick/completions/homeshick-completion.bash
+    source ~/.homesick/repos/homeshick/completions/homeshick-completion.bash
 fi
 
 if [ -f ~/.local.bashrc ]; then
-	source ~/.local.bashrc
+    source ~/.local.bashrc
 fi
 
 ## So as not to be disturbed by Ctrl-S or Ctrl-Q in terminals
