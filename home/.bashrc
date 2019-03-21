@@ -80,9 +80,11 @@ if [ -f /usr/bin/vi ]; then
     export EDITOR=/usr/bin/vi
 fi
 
+# Add Rust's user-compiled pakcages bin folder to PATH
+pathprepend '~/.cargo/bin/'
 # Add Python's user-installed packages bin folder to PATH
 pathprepend '~/.local/bin/'
-pathprepend '~/bin'
+pathprepend '~/bin/'
 
 # Use the system config if it exists
 if [ -f /etc/bashrc ]; then
