@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# Usage: every <seconds> <command>...
+#
+# https://github.com/rtomayko/dotfiles/
+
+set -e
+
+duration="$1"
+shift
+
+while true; do
+  "$@" || echo warn: exited $?
+  sleep $duration
+done
