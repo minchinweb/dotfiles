@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# https://github.com/myfreeweb/dotfiles/
+
+git commit -am "`curl -s http://whatthecommit.com/index.txt`"
