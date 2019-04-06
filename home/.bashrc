@@ -7,7 +7,7 @@
 
 #
 # Function to display color table
-colors() {
+Get-Colours() {
     local fgc bgc vals seq0
 
     printf "Color escapes are %s\n" '\e[${value};...;${value}m'
@@ -131,6 +131,11 @@ fi
 ## So as not to be disturbed by Ctrl-S or Ctrl-Q in terminals
 # https://unix.stackexchange.com/questions/72086/ctrl-s-hang-terminal-emulator
 stty -ixon
+
+# Hit `Esc` twice to clear the line
+# note there is a small delay on this
+# https://unix.stackexchange.com/questions/30987/windows-shell-escape-key-delete-whole-line-equivalent-in-bash
+bind '"\e\e":kill-whole-line'
 
 ## Run neofetch as our MOTD on login
 # neofetch
