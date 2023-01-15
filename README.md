@@ -10,7 +10,7 @@ Assumes bash, git, and neofetch are available and installed.
 
 Install Homeshick:
 
-    git clone git://github.com/andsens/homeshick.git $HOME/.homesick/repos/homeshick
+    git clone https://github.com/andsens/homeshick.git $HOME/.homesick/repos/homeshick
 
 Make *homeshick* command available:
 
