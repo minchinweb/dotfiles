@@ -42,24 +42,24 @@ Get-Colours() {
 ## Path Additions Functions
 # https://superuser.com/a/753948/447564
 pathappend() {
-  for ARG in "$@"
-  do
-      ARG="${ARG/#\~/$HOME}"  # expand ~ into Home
-    if [ -d "$ARG" ] && [[ ":$PATH:" != *":$ARG:"* ]]; then
-        PATH="${PATH:+"$PATH:"}$ARG"
-    fi
-  done
+    for ARG in "$@"
+    do
+        ARG="${ARG/#\~/$HOME}"  # expand ~ into Home
+        if [ -d "$ARG" ] && [[ ":$PATH:" != *":$ARG:"* ]]; then
+            PATH="${PATH:+"$PATH:"}$ARG"
+        fi
+    done
 }
 
 pathprepend() {
-      for ((i=$#; i>0; i--)); 
-      do
+    for ((i=$#; i>0; i--)); 
+    do
         ARG=${!i}
         ARG="${ARG/#\~/$HOME}"  # expand ~ into Home
         if [ -d "$ARG" ] && [[ ":$PATH:" != *":$ARG:"* ]]; then
             PATH="$ARG${PATH:+":$PATH"}"
         fi
-      done
+    done
 }
 
 # Reload this configuration file
