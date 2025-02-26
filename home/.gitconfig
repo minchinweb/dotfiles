@@ -1,0 +1,36 @@
+[user]
+	email = w_minchin@hotmail.com
+	name = MinchinWeb
+[safe]
+	directory = /home/william/docker/build/starbound
+	directory = /home/william/docker/compose
+	directory = /home/william/docker/compose/.git
+	directory = /home/william/docker/build/ddns
+	directory = /home/william/docker/build/python
+	directory = /home/william/docker/build/base
+[column]
+	ui = auto
+[branch]
+	sort = -committerdate
+[tag]
+	sort = version:refname
+[init]
+	defaultBranch = master
+[diff]
+	algorithm = histogram
+	colorMoved = plain
+	mnemonicPrefix = true
+	renames = true
+[push]
+	default = simple
+	autoSetupRemote = true
+	followTags = true
+[help]
+	autocorrect = prompt
+[commit]
+	verbose = true
+[rerere]
+	enabled = true
+	autoupdate = true
+[pull]
+	rebase = true
