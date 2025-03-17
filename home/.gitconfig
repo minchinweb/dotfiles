@@ -11,6 +11,8 @@
         directory = /storage/emulated/0/Documents/blog.minchin.ca
         directory = /storage/emulated/0/Documents/exodus
         directory = /storage/emulated/0/Documents/forgejo-test
+	directory = /storage/emulated/0/Documents/fse
+	directory = /storage/emulated/0/Documents/minchin.ca
         directory = /storage/emulated/0/Documents/minchin.jrnl
         directory = /storage/emulated/0/Documents/minchin.md-it.fancy-checkboxes
         directory = /storage/emulated/0/Documents/minchin.pelican.reader.microblog
