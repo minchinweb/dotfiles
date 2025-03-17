@@ -2,29 +2,28 @@
 	email = w_minchin@hotmail.com
 	name = MinchinWeb
 [safe]
-	directory = /home/william/docker/build/starbound
-	directory = /home/william/docker/compose
-	directory = /home/william/docker/compose/.git
-	directory = /home/william/docker/build/ddns
-	directory = /home/william/docker/build/python
 	directory = /home/william/docker/build/base
-        directory = /storage/emulated/0/Documents/obsidian-vault
+	directory = /home/william/docker/build/ddns
+	directory = /home/william/docker/build/starbound
+	directory = /home/william/docker/build/python
+	directory = /home/william/docker/compose
         directory = /storage/emulated/0/Documents
-        directory = /storage/emulated/0/Documents/minchin.pelican.reader.microblog
         directory = /storage/emulated/0/Documents/blog.minchin.ca
-        directory = /storage/emulated/0/Documents/minchin.pelican.plugins.autoloader
-        directory = /storage/emulated/0/Documents/study-companion
         directory = /storage/emulated/0/Documents/exodus
+        directory = /storage/emulated/0/Documents/forgejo-test
+        directory = /storage/emulated/0/Documents/minchin.jrnl
+        directory = /storage/emulated/0/Documents/minchin.md-it.fancy-checkboxes
+        directory = /storage/emulated/0/Documents/minchin.pelican.reader.microblog
         directory = /storage/emulated/0/Documents/minchin.pelican.readers.gpx
         directory = /storage/emulated/0/Documents/minchin.pelican.readers.microblog
-        directory = /storage/emulated/0/Documents/webshop
-        directory = /storage/emulated/0/Documents/pelican
-        directory = /storage/emulated/0/Documents/minchin.md-it.fancy-checkboxes
-        directory = /storage/emulated/0/Documents/watt-obsidian
+        directory = /storage/emulated/0/Documents/minchin.pelican.plugins.autoloader
+        directory = /storage/emulated/0/Documents/obsidian-vault
         directory = /storage/emulated/0/Documents/obsidian-vault/Watt
-        directory = /storage/emulated/0/Documents/minchin.jrnl
+        directory = /storage/emulated/0/Documents/pelican
+        directory = /storage/emulated/0/Documents/study-companion
         directory = /storage/emulated/0/Documents/seafoam
-        directory = /storage/emulated/0/Documents/forgejo-tes
+        directory = /storage/emulated/0/Documents/watt-obsidian
+        directory = /storage/emulated/0/Documents/webshop
 [column]
 	ui = auto
 [branch]
