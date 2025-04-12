@@ -1,0 +1,384 @@
+" vim configuration file
+"
+" 2025-04-11 -- WM
+
+" (General) Vim Settings
+""""""""""""""""""""""""
+
+" Disable strange Vi defaults.
+" default if you have a .vimr
+" Also needed for PolyGlot not to break LightLine
+set nocompatible
+
+" Set mapleader to space by default, early so all mappings by plugins are set
+if !exists("mapleader")
+  let mapleader = "\<Space>"
+endif
+
+" Autoindent when starting new line, or using `o` or `O`.
+set autoindent
+
+set smartindent
+
+" Allow backspace in insert mode.
+set backspace=indent,eol,start
+
+" Use 'shiftwidth' when using `<Tab>` in front
+" of a line. By default it's used only for shift
+" commands (`<`, `>`).
+set smarttab
+
+" Show the line and column number of the cursor
+" position.
+set ruler
+
+" Allow for mappings including `Esc`, while
+" preserving zero timeout after pressing it
+" manually. (only vim needs a fix for this)
+if !has('nvim') && &ttimeoutlen == -1
+  set ttimeout
+  set ttimeoutlen=100
+endif
+
+" Enable highlighted case-insensitive incremental search.
+set incsearch
+
+" Autocomplete commands using nice menu in place
+" of window status. Enable `Ctrl-N` and `Ctrl-P`
+" to scroll through matches.
+set wildmenu
+
+" Keep 5 columns next to the cursor when scrolling horizontally.
+if !&scrolloff
+  set scrolloff=1
+endif
+if !&sidescrolloff
+  set sidescrolloff=5
+endif
+
+" When 'wrap' is on, display last line even if it doesn't fit.
+set display+=lastline
+
+" Force utf-8 encoding
+set encoding=utf-8
+
+" Delete comment character when joining commented lines
+if v:version > 703 || v:version == 703 && has("patch541")
+  set formatoptions+=j
+endif
+
+" Reload unchanged files automatically.
+set autoread
+
+" Allow color schemes to do bright colors without forcing bold.
+if &t_Co == 8 && $TERM !~# '^Eterm'
+  set t_Co=16
+endif
+
+" Improve displayed color if supported by terminal
+" Also requied by TokyoNight color scheme to work properly.
+if &t_Co >= 256
+  set termguicolors
+end
+
+" Highlight line under cursor. It helps with navigation.
+set cursorline
+set cursorlineopt=number
+
+" Wrap lines by default. Break between words
+set wrap linebreak
+"set showbreak=" "
+" continuation prefix for follow-on lines
+let &showbreak='> '
+" let &sbr = nr2char(8618).' '  " show ↪ at the beginning of wrapped lines
+
+" For autocompletion, complete as much as you can.
+set wildmode=longest,full
+
+" Show line numbers on the sidebar (on wide enough terminals)
+if winwidth(0) > 70
+  set number
+endif
+
+" Enable mouse for scrolling and window resizing.
+set mouse=a
+
+" Enable search highlighting.
+set hlsearch
+
+" Ignore case when searching.
+set ignorecase
+
+" Use dash as word separator.
+set iskeyword+=-
+
+" Disable output, vcs, archive, rails, temp and backup files.
+set wildignore+=*.o,*.out,*.obj,.git,*.rbc
+set wildignore+=*.rbo,*.class,.svn,*.gem
+set wildignore+=*.zip,*.tar.gz,*.tar.bz2
+set wildignore+=*.rar,*.tar.xz
+set wildignore+=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
+set wildignore+=*/vendor/gems/*
+set wildignore+=*/vendor/cache/*
+set wildignore+=*/.bundle/*,*/.sass-cache/*
+set wildignore+=*.swp,*~,._*
+set wildignore+=*/build         " distutils
+set wildignore+=*/dist          " distutils deliverables
+set wildignore+=*/htmlcov       " coverage.py html reports
+set wildignore+=*/coverage      " zope.testrunner --coverage
+set wildignore+=*/parts         " all buildout-generated junk even
+set wildignore+=*/.venv         " virtualenv
+set wildignore+=*/eggs          " buildout?
+set wildignore+=*/.eggs         " setuptools
+set wildignore+=.tox/*          " tox
+set wildignore+=*/_build        " sphinx
+set wildignore+=*/node_modules  " thousands of files, omg
+set wildignore+=.ruff_cache     " ruff, a Python linter
+
+" Turn on syntax highlighting
+syntax on
+
+" shows the command currently being typed on the bottom-right of the screen
+set showcmd
+
+
+
+" Plugins & Color Schemes (and related settings)
+""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Install vim-plug if not found
+if empty(glob('~/.config/vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.config/vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+endif
+
+" Run PlugInstall if there are missing plugins
+autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \| PlugInstall --sync | source $MYVIMRC
+\| endif
+
+
+call plug#begin('~/.config/vim/plugged')
+  " List your plugins here
+  " Plug 'tpope/vim-sensible'
+ 
+  " color schemes
+  Plug 'tomasr/molokai'
+  Plug 'morhetz/gruvbox'
+  Plug 'embark-theme/vim', { 'as': 'embark', 'branch': 'main' }
+  Plug 'ghifarit53/tokyonight-vim'
+  Plug 'altercation/vim-colors-solarized'
+  Plug 'NLKNguyen/papercolor-theme'
+  Plug 'sainnhe/sonokai'  " high-contast version of Monokai Pro
+  Plug 'sainnhe/everforest'
+  Plug 'aonemd/quietlight.vim'
+
+
+  " language support
+  " PolyGlot, in its default configuration,
+  " seems to break LightLine
+  Plug 'sheerun/vim-polyglot'
+  "Plug 'tpope/vim-markdown'
+  " Better Python autoindentation
+  Plug 'Vimjas/vim-python-pep8-indent'
+  " Improved ReStructuredText syntax
+  Plug 'mrsipan/vim-rst'
+  " Jinja syntax
+  Plug 'mgedmin/vim-jinja'
+
+
+  " others
+  Plug 'airblade/vim-gitgutter'
+  Plug 'Yggdroot/indentLine'
+  Plug 'mhinz/vim-startify'
+  Plug 'itchyny/lightline.vim'
+  Plug 'jiangmiao/auto-pairs'
+  Plug 'tpope/vim-fugitive'  " enhanced Git support
+  " Try build-in comment toggling support first
+  "Plug 'tpope/vim-commentary'  " toggle comments
+  " Defines the very useful :Rename newfilename.txt
+  Plug 'vim-scripts/Rename'
+  " :StartupTime
+  Plug 'dstein64/vim-startuptime'
+  " Highlight whatever was yanked, briefly
+  Plug 'machakann/vim-highlightedyank'
+  " autoclose character pairs
+  Plug 'tmsvg/pear-tree'
+  "Plug 'wsdjeg/vim-zettelkasten'
+  " change the display of characters without changing font
+  "Plug 'sainnhe/artify.vim'
+
+call plug#end()
+
+packadd! editorconfig
+" Comment out stuff with gc<motion> (gcc for the current line)
+packadd comment
+
+" Don't hide Markdown syntax
+" WM -- still seems to be hidding the syntax...
+" may be related to IndentLine plugin...
+let g:markdown_syntax_conceal = 0
+" Markdown: enable fenced code block syntax highlighting
+let g:markdown_fenced_languages = [
+  \   'html',
+  \   'css',
+  \   'python',
+  \   'bash=sh',
+  \ ]
+
+" TokyoNight
+let g:tokyonight_style = 'night'  " available: night, storm
+let g:tokyonight_enable_italic = 1
+"set termguicolors  " turn on 24 bit colors
+
+" EverForest
+let g:everforest_background = 'hard'  " 'hard', 'medium'(default), 'soft'
+let g:everforest_better_performance = 1
+
+
+
+" set preferred color scheme
+"colorscheme zaibatsu
+set background=dark
+colorscheme PaperColor
+
+" recommended by gitgutter
+set updatetime=100
+
+""" LightLine
+
+" not needed with lightline
+set noshowmode
+
+" LightLine, based on color scheme
+if g:colors_name == 'tokyonight'
+  let g:lightline = { 'colorscheme': 'tokyonight' }
+elseif g:colors_name == 'PaperColor'
+  let g:lightline = { 'colorscheme': 'PaperColor' }
+elseif g:colors_name == 'everforest'
+  let g:lightline = {'colorscheme' : 'everforest'}
+endif
+
+
+let g:lightline = {
+  \ 'active': {
+  \   'left':  [ [ 'mode',
+  \                'paste' ],
+  \            [ 
+  \              'filename',
+  "\              'relativepath',
+  \              'readonly',
+  \              'modified' ] ],
+  \   'right': [ [ 'lineinfo' ],
+  "\              [ 'percent' ],  " included in lineinfo function
+  \              [
+  \                'fileencoding',
+  \                'fileformat',
+  \                'filetype',
+  \                'devicons_filetype',
+  "\                'gitbranch',
+  \                            ] ]
+  \ },
+  \ 'inactive': {
+  \   'left':  [ [ 'filename',
+  \                'readonly',
+  \                'modified' ] ],
+  \   'right': [ [ 'lineinfo' ],
+  \              [ 'percent' ] ]
+  \ },
+  \ 'tabline': {
+  \   'left':  [ [ 'vim_logo',
+  \                'tabs' ] ],
+  \   'right': [ 
+  "\              [ 'git_global' ],
+  "\              [ 'git_buffer' ],
+  \              [ 'close' ] ]
+  \ },
+  \ 'tab': {
+  \   'active':   [ 'tabnum',
+  \                 'filename',
+  \                 'modified' ],
+  \   'inactive': [ 'tabnum',
+  \                 'filename',
+  \                 'modified' ]
+  \ },
+  \ 'component': {
+  \   'vim_logo': "\ue7c5",
+  \   'mode': '%{lightline#mode()}',
+  \   'filename': '%t',
+  "\   'fileformat': '%{&fenc!=#""?&fenc:&enc}[%{&ff}]',
+  "\   'filetype': '%{&filetype}',
+  \   'modified': '%M',
+  \   'paste': '%{&paste?"PASTE":""}',
+  \   'readonly': '%R',
+  \   'lineinfo': '%2p%% %3l:%-2v',
+  \   'git_buffer' : '%{get(b:, "coc_git_status", "")}',
+  \   'git_global' : '%{custom#lightline#git_global()}',
+  \ },
+  \ 'component_function': {
+  \   'fileformat': 'LightlineFileformat',
+  \   'filetype': 'LightlineFiletype',
+  \   'gitbranch': 'fugitive#head',
+  \   'devicons_filetype': 'custom#lightline#devicons',
+  \   'coc_status': 'custom#lightline#coc_status'
+  \ },
+  \ 'tab_component_function': {
+  \   'tabnum': 'custom#lightline#tabnum',
+  \   'filename': 'lightline#tab#filename',
+  \   'modified': 'lightline#tab#modified',
+  \   'readonly': 'lightline#tab#readonly'
+  \ },
+  \ 'separator': {
+  \   'left': "\ue0b8", 'right': "\ue0be" },
+  \ 'subseparator': {
+  \   'left': "\ue0b9", 'right': "\ue0b9" },
+  \ 'tabline_separator': {
+  \   'left': "\ue0bc", 'right': "\ue0ba" },
+  \ 'tabline_subseparator': {
+  \   'left': "\ue0bb", 'right': "\ue0bb" },
+\ }
+
+" trim the file format and encoding information
+" on narrow windows (for lightline)
+function! LightlineFileformat()
+  return winwidth(0) > 70 ? &fileformat : ''
+endfunction
+
+function! LightlineFiletype()
+  return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+endfunction
+
+" HighlightedYank
+let g:highlightedyank_highlight_duration = 250
+let g:highlightedyank_highlight_in_visual = 0
+
+
+" Keyboard Shortcuts
+""""""""""""""""""""
+
+" Prevent common mistake of pressing q: instead :q
+map q: :q
+
+" Y yanks from the cursor to the end of line as
+" expected. See :help Y.
+nnoremap Y y$
+
+" Move a line, or selection of lines, up and down with Alt+j|k
+nnoremap <A-j> :m .+1<CR>
+nnoremap <A-k> :m .-2<CR>
+inoremap <A-j> <Esc>:m .+1<CR>gi
+inoremap <A-k> <Esc>:m .-2<CR>gi
+vnoremap <A-j> :m '>+1<CR>gv
+vnoremap <A-k> :m '<-2<CR>gv
+
+
+" Use Ctrl-L to clear the highlighting of :set hlsearch.
+if maparg('<C-L>', 'n') ==# ''
+  nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+endif
+
+" Enable saving by `Ctrl-S`
+nnoremap <C-s> :w<CR>
+inoremap <C-s> <ESC>:w<CR>
+
+
