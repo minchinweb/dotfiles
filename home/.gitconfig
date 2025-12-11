@@ -29,6 +29,9 @@
     directory = /storage/emulated/0/Documents/seafoam
     directory = /storage/emulated/0/Documents/watt-obsidian
     directory = /storage/emulated/0/Documents/webshop
+	directory = /home/william/docker/build/pypi
+	directory = /home/william/docker/build/strathcona-power/
+	directory = /home/william/docker/build/strathcona-power
 [column]
 	ui = auto
 [branch]
