@@ -46,3 +46,28 @@ Reload *.bashrc*:
     source ~/.bashrc
 
 Profit!
+
+To Add (Track) a New File
+-------------------------
+
+    homeshick track dotfiles new-file
+
+You then need to go to the castle, commit the changes (to Git), and then push
+the changes up.
+
+Per Program Notes
+-----------------
+
+Setup to use *fastfetch* (although the *neofetch* configuration hasn't been
+deleted). However, to use this, you need to install *fastfetch* via a PPA (on
+Ubuntu):
+
+    sudo add-apt-repository ppa:zhangsongcui3371/fastfetch
+    sudo apt update
+    sudo apt install fastfetch
+
+Configuration for *vim* is at `~/.config/vim/vimrc`, however [v9.1.1972 or
+newer](https://github.com/vim/vim/commit/c9df1fb) is required to find the files
+in this location, which is newer than is included in the Ubuntu Noble software
+listing (v9.1.0016?). The way to get an updated version appears to be to [build
+it from source](https://www.vim.org/git.php).

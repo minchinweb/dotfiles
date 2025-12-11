@@ -26,6 +26,9 @@ set backspace=indent,eol,start
 " Use 'shiftwidth' when using `<Tab>` in front
 " of a line. By default it's used only for shift
 " commands (`<`, `>`).
+"" 1 tab == 4 spaces
+"set shiftwidth=4
+"set tabstop=4
 set smarttab
 
 " Show the line and column number of the cursor
@@ -98,13 +101,16 @@ set wildmode=longest,full
 " Show line numbers on the sidebar (on wide enough terminals)
 if winwidth(0) > 70
   set number
+  set numberwidth=4
 endif
 
 " Enable mouse for scrolling and window resizing.
 set mouse=a
 
 " Enable search highlighting.
+" use slash ( / ) to search, Ctrl-G to move to the next result, Ctrl-T moves backwards
 set hlsearch
+"set hlsearch incsearch
 
 " Ignore case when searching.
 set ignorecase
@@ -161,7 +167,7 @@ autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
 call plug#begin('~/.config/vim/plugged')
   " List your plugins here
   " Plug 'tpope/vim-sensible'
- 
+
   " color schemes
   Plug 'tomasr/molokai'
   Plug 'morhetz/gruvbox'
@@ -238,6 +244,7 @@ let g:everforest_better_performance = 1
 
 
 " set preferred color scheme
+"colorscheme zenburn
 "colorscheme zaibatsu
 set background=dark
 colorscheme PaperColor
@@ -352,6 +359,9 @@ endfunction
 let g:highlightedyank_highlight_duration = 250
 let g:highlightedyank_highlight_in_visual = 0
 
+" set a "highlighter" at 80 characters
+set colorcolumn=80
+
 
 " Keyboard Shortcuts
 """"""""""""""""""""
@@ -381,4 +391,9 @@ endif
 nnoremap <C-s> :w<CR>
 inoremap <C-s> <ESC>:w<CR>
 
+" :W sudo saves the file
+" (useful for handling the permission-denied error)
+command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 
+" " reload vim configuration
+" nnoremap <leader>refresh-env :source $MYVIMRC<cr>
