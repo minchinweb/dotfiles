@@ -46,6 +46,13 @@ endif
 " Enable highlighted case-insensitive incremental search.
 set incsearch
 
+" Enable search highlighting.
+" use slash ( / ) to search, Ctrl-G to move to the next result, Ctrl-T moves backwards
+set hlsearch
+
+" Ignore case when searching.
+set ignorecase
+
 " Autocomplete commands using nice menu in place
 " of window status. Enable `Ctrl-N` and `Ctrl-P`
 " to scroll through matches.
@@ -106,14 +113,6 @@ endif
 
 " Enable mouse for scrolling and window resizing.
 set mouse=a
-
-" Enable search highlighting.
-" use slash ( / ) to search, Ctrl-G to move to the next result, Ctrl-T moves backwards
-set hlsearch
-"set hlsearch incsearch
-
-" Ignore case when searching.
-set ignorecase
 
 " Use dash as word separator.
 set iskeyword+=-
@@ -355,12 +354,16 @@ function! LightlineFiletype()
   return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
 endfunction
 
+" show Lightline with a single buffer open
+set laststatus=2
+
 " HighlightedYank
 let g:highlightedyank_highlight_duration = 250
 let g:highlightedyank_highlight_in_visual = 0
 
 " set a "highlighter" at 80 characters
 set colorcolumn=80
+
 
 
 " Keyboard Shortcuts
