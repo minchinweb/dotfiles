@@ -2,36 +2,36 @@
 	email = w_minchin@hotmail.com
 	name = MinchinWeb
 [alias]
-    logline = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-    git = !git
+  logline = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  git = !git
 [safe]
 	directory = /home/william/docker/build/base
 	directory = /home/william/docker/build/ddns
 	directory = /home/william/docker/build/starbound
 	directory = /home/william/docker/build/python
 	directory = /home/william/docker/compose
-    directory = /storage/emulated/0/Documents
-    directory = /storage/emulated/0/Documents/blog.minchin.ca
-    directory = /storage/emulated/0/Documents/exodus
-    directory = /storage/emulated/0/Documents/forgejo-test
+	directory = /home/william/docker/build/pypi
+	directory = /home/william/docker/build/strathcona-power
+  directory = /storage/emulated/0/Documents
+  directory = /storage/emulated/0/Documents/blog.minchin.ca
+  directory = /storage/emulated/0/Documents/exodus
+  directory = /storage/emulated/0/Documents/forgejo-test
 	directory = /storage/emulated/0/Documents/fse
 	directory = /storage/emulated/0/Documents/minchin.ca
-    directory = /storage/emulated/0/Documents/minchin.jrnl
-    directory = /storage/emulated/0/Documents/minchin.md-it.fancy-checkboxes
-    directory = /storage/emulated/0/Documents/minchin.pelican.reader.microblog
-    directory = /storage/emulated/0/Documents/minchin.pelican.readers.gpx
-    directory = /storage/emulated/0/Documents/minchin.pelican.readers.microblog
-    directory = /storage/emulated/0/Documents/minchin.pelican.plugins.autoloader
-    directory = /storage/emulated/0/Documents/obsidian-vault
-    directory = /storage/emulated/0/Documents/obsidian-vault/Watt
-    directory = /storage/emulated/0/Documents/pelican
-    directory = /storage/emulated/0/Documents/study-companion
-    directory = /storage/emulated/0/Documents/seafoam
-    directory = /storage/emulated/0/Documents/watt-obsidian
-    directory = /storage/emulated/0/Documents/webshop
-	directory = /home/william/docker/build/pypi
-	directory = /home/william/docker/build/strathcona-power/
-	directory = /home/william/docker/build/strathcona-power
+  directory = /storage/emulated/0/Documents/minchin.jrnl
+  directory = /storage/emulated/0/Documents/minchin.md-it.fancy-checkboxes
+  directory = /storage/emulated/0/Documents/minchin.pelican.reader.microblog
+  directory = /storage/emulated/0/Documents/minchin.pelican.readers.gpx
+  directory = /storage/emulated/0/Documents/minchin.pelican.readers.microblog
+  directory = /storage/emulated/0/Documents/minchin.pelican.plugins.autoloader
+  directory = /storage/emulated/0/Documents/obsidian-vault
+  directory = /storage/emulated/0/Documents/obsidian-vault/Watt
+  directory = /storage/emulated/0/Documents/pelican
+  directory = /storage/emulated/0/Documents/study-companion
+  directory = /storage/emulated/0/Documents/seafoam
+  directory = /storage/emulated/0/Documents/watt-obsidian
+  directory = /storage/emulated/0/Documents/webshop
+	directory = /storage/emulated/0/Documents/minchin.pelican.readers.commonmark
 [column]
 	ui = auto
 [branch]
@@ -64,3 +64,5 @@
 [credential "https://gist.github.com"]
         helper =
         helper = !/data/data/com.termux/files/usr/bin/gh auth git-credential
+[core]
+	editor = vim
