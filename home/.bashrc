@@ -76,7 +76,9 @@ alias ping='ping -c 4'
 alias rm='rm -i'
 
 # set editor to vi (default was nano on Arch/Majaro)
-if [ -f /usr/bin/vi ]; then
+if [ -f /usr/local/bin/vim ]; then
+    export EDITOR=/usr/local/bin/vim
+elif [ -f /usr/bin/vi ]; then
     export EDITOR=/usr/bin/vi
 fi
 
@@ -104,7 +106,7 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
-[ -r /usr/share/bash-completion/bash_completion   ] && . /usr/share/bash-completion/bash_completion
+[ -r /usr/share/bash-completion/bash_completion ] && . /usr/share/bash-completion/bash_completion
 
 ## Use Sensible Bash
 # https://github.com/mrzool/bash-sensible
