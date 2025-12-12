@@ -58,11 +58,11 @@
 	autoupdate = true
 [pull]
 	rebase = true
-[credential "https://github.com"]
-        helper =
-        helper = !/data/data/com.termux/files/usr/bin/gh auth git-credential
-[credential "https://gist.github.com"]
-        helper =
-        helper = !/data/data/com.termux/files/usr/bin/gh auth git-credential
 [core]
 	editor = vim
+[credential "https://github.com"]
+	helper = 
+	helper = !gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !gh auth git-credential
