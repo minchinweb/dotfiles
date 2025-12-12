@@ -1,6 +1,6 @@
 " vim configuration file
 "
-" 2025-04-11 -- WM
+" 2025-12-11 -- WM
 
 " (General) Vim Settings
 """"""""""""""""""""""""
@@ -12,7 +12,7 @@ set nocompatible
 
 " Set mapleader to space by default, early so all mappings by plugins are set
 if !exists("mapleader")
-  let mapleader = "\<Space>"
+  let mapleader = ","
 endif
 
 " Autoindent when starting new line, or using `o` or `O`.
@@ -146,7 +146,8 @@ syntax on
 " shows the command currently being typed on the bottom-right of the screen
 set showcmd
 
-
+" needed for 'commentary' plugin
+filetype plugin indent on
 
 " Plugins & Color Schemes (and related settings)
 """"""""""""""""""""""""""""""""""""""""""""""""
@@ -177,7 +178,7 @@ call plug#begin('~/.config/vim/plugged')
   Plug 'sainnhe/sonokai'  " high-contast version of Monokai Pro
   Plug 'sainnhe/everforest'
   Plug 'aonemd/quietlight.vim'
-
+  "Plug 'crucerucalin/peaksea.vim'
 
   " language support
   " PolyGlot, in its default configuration,
@@ -190,7 +191,8 @@ call plug#begin('~/.config/vim/plugged')
   Plug 'mrsipan/vim-rst'
   " Jinja syntax
   Plug 'mgedmin/vim-jinja'
-
+  " LESS syntax
+  "Plug 'groenewege/vim-less'
 
   " others
   Plug 'airblade/vim-gitgutter'
@@ -199,8 +201,7 @@ call plug#begin('~/.config/vim/plugged')
   Plug 'itchyny/lightline.vim'
   Plug 'jiangmiao/auto-pairs'
   Plug 'tpope/vim-fugitive'  " enhanced Git support
-  " Try build-in comment toggling support first
-  "Plug 'tpope/vim-commentary'  " toggle comments
+  "Plug 'tpope/vim-commentary'  " toggle comments; use `<leader>gcc` or `<leader>gc<more>`
   " Defines the very useful :Rename newfilename.txt
   Plug 'vim-scripts/Rename'
   " :StartupTime
@@ -212,6 +213,8 @@ call plug#begin('~/.config/vim/plugged')
   "Plug 'wsdjeg/vim-zettelkasten'
   " change the display of characters without changing font
   "Plug 'sainnhe/artify.vim'
+  " sidebar File Tree
+  Plug 'preservim/nerdtree'
 
 call plug#end()
 
@@ -220,16 +223,17 @@ packadd! editorconfig
 packadd comment
 
 " Don't hide Markdown syntax
-" WM -- still seems to be hidding the syntax...
-" may be related to IndentLine plugin...
-let g:markdown_syntax_conceal = 0
-" Markdown: enable fenced code block syntax highlighting
-let g:markdown_fenced_languages = [
+let g:vim_markdown_conceal = 0
+" Markdown: enable fenced code block syntax highlighting (and mapping)
+let g:vim_markdown_fenced_lanages = [
   \   'html',
   \   'css',
   \   'python',
   \   'bash=sh',
   \ ]
+let g:vim_markdown_strikethrough = 1
+let g:vim_markdown_frontmatter = 1  " YAML frontmatter
+let g:vim_markdown_conceal_code_blocks = 0
 
 " TokyoNight
 let g:tokyonight_style = 'night'  " available: night, storm
@@ -364,6 +368,13 @@ let g:highlightedyank_highlight_in_visual = 0
 " set a "highlighter" at 80 characters
 set colorcolumn=80
 
+" display the lines in each file
+let g:NERDTreeFileLines = 1
+
+let NERDTreeShowHidden = 1  " still ignores things listed in `wildignore`
+let NERDTreeIgnore = ['\.pyc$', '__pycache__']
+let NERDTreeShowHidden = 1
+
 
 
 " Keyboard Shortcuts
@@ -400,3 +411,11 @@ command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 
 " " reload vim configuration
 " nnoremap <leader>refresh-env :source $MYVIMRC<cr>
+
+" pull up NERDTree
+nnoremap <leader>n :NERDTreeFocus<CR>
+" more NERDTree
+map <leader>nn :NERDTreeToggle<cr>
+map <leader>nb :NERDTreeFromBookmark<Space>
+map <leader>nf :NERDTreeFind<cr>
+
