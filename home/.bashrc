@@ -78,6 +78,7 @@ alias rm='rm -i'
 # set editor to vi (default was nano on Arch/Majaro)
 if [ -f /usr/local/bin/vim ]; then
     export EDITOR=/usr/local/bin/vim
+    alias vi=/usr/local/bin/vim
 elif [ -f /usr/bin/vi ]; then
     export EDITOR=/usr/bin/vi
 fi
