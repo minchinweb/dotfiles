@@ -1,6 +1,9 @@
 #
 # ~/.bashrc
 #
+#
+# This is not loaded by Oh-My-Zsh, edit ~/.zshrc
+# instead
 
 # if we're on a non-interactive session, bail here!
 [[ $- != *i* ]] && return
@@ -89,6 +92,14 @@ pathprepend '~/.cargo/bin/'
 pathprepend '~/.local/bin/'
 pathprepend '~/bin/'
 
+# needed for `maturin`, which builds
+# Python + Rust packages. Ideally this would in
+# Termux local configuration.
+# 35 is Android 15
+# 36 is Android 16
+export ANDROID_API_LEVEL=36
+
+
 # Use the system config if it exists
 if [ -f /etc/bashrc ]; then
     . /etc/bashrc        # --> Read /etc/bashrc, if present.
@@ -99,7 +110,7 @@ fi
 [[ -f ~/.extend.bashrc ]] && . ~/.extend.bashrc
 
 if [ -f ~/.local.bashrc ]; then
-    source ~/.local.bashrc
+    . ~/.local.bashrc
 fi
 
 # Use Bash completion, if installed

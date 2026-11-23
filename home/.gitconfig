@@ -33,6 +33,11 @@
   directory = /storage/emulated/0/Documents/webshop
 	directory = /storage/emulated/0/Documents/minchin.pelican.readers.commonmark
 	directory = /home/william/docker/build/hass-mcp-logs
+	directory = /storage/emulated/0/Documents/strathcona-power-website
+	directory = /storage/emulated/0/Documents/hacktoberfest-2026-1
+	directory = /storage/emulated/0/Documents/chp-suit
+	directory = /storage/emulated/0/Documents/chp-suite
+	directory = /storage/emulated/0/Documents/minchin.scripts.qbw_to_sqlite
 [column]
 	ui = auto
 [branch]
