@@ -1,24 +1,27 @@
 " vim configuration file
 "
-" 2025-12-11 -- WM
+" 2026-11-22 -- WM
 
 " (General) Vim Settings
 """"""""""""""""""""""""
 
 " Disable strange Vi defaults.
-" default if you have a .vimr
+" default if you have a .vimrc
 " Also needed for PolyGlot not to break LightLine
 set nocompatible
 
-" Set mapleader to space by default, early so all mappings by plugins are set
+" Force utf-8 encoding
+set encoding=utf-8
+scriptencoding utf-8
+
+" Set mapleader to comma by default, early so all mappings by plugins are set
 if !exists("mapleader")
   let mapleader = ","
 endif
 
 " Autoindent when starting new line, or using `o` or `O`.
-set autoindent
-
-set smartindent
+"set autoindent   " defer to `filetype indent on`
+"set smartindent  "  defer to `filetype indent on`
 
 " Allow backspace in insert mode.
 set backspace=indent,eol,start
@@ -69,9 +72,6 @@ endif
 " When 'wrap' is on, display last line even if it doesn't fit.
 set display+=lastline
 
-" Force utf-8 encoding
-set encoding=utf-8
-
 " Delete comment character when joining commented lines
 if v:version > 703 || v:version == 703 && has("patch541")
   set formatoptions+=j
@@ -89,7 +89,7 @@ endif
 " Also requied by TokyoNight color scheme to work properly.
 if &t_Co >= 256
   set termguicolors
-end
+endif
 
 " Highlight line under cursor. It helps with navigation.
 set cursorline
@@ -106,7 +106,7 @@ let &showbreak='> '
 set wildmode=longest,full
 
 " Show line numbers on the sidebar (on wide enough terminals)
-if winwidth(0) > 70
+if &columns > 70
   set number
   set numberwidth=4
 endif
@@ -115,7 +115,9 @@ endif
 set mouse=a
 
 " Use dash as word separator.
-set iskeyword+=-
+augroup vimrc_iskeyword |au!
+  au FileType css,scss,html,sh,yaml,toml setlocal iskeyword+=-
+augroup END
 
 " Disable output, vcs, archive, rails, temp and backup files.
 set wildignore+=*.o,*.out,*.obj,.git,*.rbc
@@ -141,13 +143,13 @@ set wildignore+=*/node_modules  " thousands of files, omg
 set wildignore+=.ruff_cache     " ruff, a Python linter
 
 " Turn on syntax highlighting
-syntax on
+"syntax on  " run by `plug#end()`
 
 " shows the command currently being typed on the bottom-right of the screen
 set showcmd
 
 " needed for 'commentary' plugin
-filetype plugin indent on
+"filetype plugin indent on  " run by `plug#end()`
 
 " Plugins & Color Schemes (and related settings)
 """"""""""""""""""""""""""""""""""""""""""""""""
@@ -159,9 +161,11 @@ if empty(glob('~/.config/vim/autoload/plug.vim'))
 endif
 
 " Run PlugInstall if there are missing plugins
-autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-  \| PlugInstall --sync | source $MYVIMRC
-\| endif
+augroup vimplug | au!
+  autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+    \| PlugInstall --sync | source $MYVIMRC
+  \| endif
+augroup END
 
 
 call plug#begin('~/.config/vim/plugged')
@@ -186,7 +190,7 @@ call plug#begin('~/.config/vim/plugged')
   Plug 'sheerun/vim-polyglot'
   "Plug 'tpope/vim-markdown'
   " Better Python autoindentation
-  Plug 'Vimjas/vim-python-pep8-indent'
+  "Plug 'Vimjas/vim-python-pep8-indent'  " included in `vim-polyglot`
   " Improved ReStructuredText syntax
   Plug 'mrsipan/vim-rst'
   " Jinja syntax
@@ -199,8 +203,10 @@ call plug#begin('~/.config/vim/plugged')
   Plug 'Yggdroot/indentLine'
   Plug 'mhinz/vim-startify'
   Plug 'itchyny/lightline.vim'
-  Plug 'jiangmiao/auto-pairs'
-  Plug 'tpope/vim-fugitive'  " enhanced Git support
+  Plug 'ryanoasis/vim-devicons'
+  "Plug 'jiangmiao/auto-pairs'  " defer to `pair-tree`
+  " enhanced Git support
+  Plug 'tpope/vim-fugitive'
   "Plug 'tpope/vim-commentary'  " toggle comments; use `<leader>gcc` or `<leader>gc<more>`
   " Defines the very useful :Rename newfilename.txt
   Plug 'vim-scripts/Rename'
@@ -225,7 +231,7 @@ packadd comment
 " Don't hide Markdown syntax
 let g:vim_markdown_conceal = 0
 " Markdown: enable fenced code block syntax highlighting (and mapping)
-let g:vim_markdown_fenced_lanages = [
+let g:vim_markdown_fenced_languages = [
   \   'html',
   \   'css',
   \   'python',
@@ -234,6 +240,12 @@ let g:vim_markdown_fenced_lanages = [
 let g:vim_markdown_strikethrough = 1
 let g:vim_markdown_frontmatter = 1  " YAML frontmatter
 let g:vim_markdown_conceal_code_blocks = 0
+let g:indentLine_fileTypeExclude = [
+  \   'markdown',
+  \   'json',
+  \   'startify',
+  \   'nerdtree',
+  \ ]
 
 " TokyoNight
 let g:tokyonight_style = 'night'  " available: night, storm
@@ -260,16 +272,7 @@ set updatetime=100
 " not needed with lightline
 set noshowmode
 
-" LightLine, based on color scheme
-if g:colors_name == 'tokyonight'
-  let g:lightline = { 'colorscheme': 'tokyonight' }
-elseif g:colors_name == 'PaperColor'
-  let g:lightline = { 'colorscheme': 'PaperColor' }
-elseif g:colors_name == 'everforest'
-  let g:lightline = {'colorscheme' : 'everforest'}
-endif
-
-
+" LightLine
 let g:lightline = {
   \ 'active': {
   \   'left':  [ [ 'mode',
@@ -286,7 +289,7 @@ let g:lightline = {
   \                'fileformat',
   \                'filetype',
   \                'devicons_filetype',
-  "\                'gitbranch',
+  \                'gitbranch',
   \                            ] ]
   \ },
   \ 'inactive': {
@@ -322,18 +325,18 @@ let g:lightline = {
   \   'paste': '%{&paste?"PASTE":""}',
   \   'readonly': '%R',
   \   'lineinfo': '%2p%% %3l:%-2v',
-  \   'git_buffer' : '%{get(b:, "coc_git_status", "")}',
-  \   'git_global' : '%{custom#lightline#git_global()}',
+  "\   'git_buffer' : '%{get(b:, "coc_git_status", "")}',
+  "\   'git_global' : '%{custom#lightline#git_global()}',
   \ },
   \ 'component_function': {
   \   'fileformat': 'LightlineFileformat',
   \   'filetype': 'LightlineFiletype',
-  \   'gitbranch': 'fugitive#head',
-  \   'devicons_filetype': 'custom#lightline#devicons',
-  \   'coc_status': 'custom#lightline#coc_status'
+  \   'gitbranch': 'FugitiveHead',
+  \   'devicons_filetype': 'LightlineDevicons',
+  "\   'coc_status': 'custom#lightline#coc_status'
   \ },
   \ 'tab_component_function': {
-  \   'tabnum': 'custom#lightline#tabnum',
+  \   'tabnum': 'lightline#tab#tabnum',
   \   'filename': 'lightline#tab#filename',
   \   'modified': 'lightline#tab#modified',
   \   'readonly': 'lightline#tab#readonly'
@@ -348,6 +351,16 @@ let g:lightline = {
   \   'left': "\ue0bb", 'right': "\ue0bb" },
 \ }
 
+" LightLine color scheme; tries to set to match the declared scheme
+let s:colors_name = get(g:, 'colors_name', '')
+if s:colors_name ==# 'tokyonight'
+  let g:lightline.colorscheme = 'tokyonight'
+elseif s:colors_name ==# 'PaperColor'
+  let g:lightline.colorscheme = 'PaperColor'
+elseif s:colors_name ==# 'everforest'
+  let g:lightline.colorscheme = 'everforest'
+endif
+
 " trim the file format and encoding information
 " on narrow windows (for lightline)
 function! LightlineFileformat()
@@ -356,6 +369,11 @@ endfunction
 
 function! LightlineFiletype()
   return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+endfunction
+
+function! LightlineDevicons() abort
+  return winwidth(0) > 70 && exists('*WebDevIconsGetFileTypeSymbol')
+    \ ? WebDevIconsGetFileTypeSymbol() : ''
 endfunction
 
 " show Lightline with a single buffer open
@@ -371,17 +389,16 @@ set colorcolumn=80
 " display the lines in each file
 let g:NERDTreeFileLines = 1
 
-let NERDTreeShowHidden = 1  " still ignores things listed in `wildignore`
-let NERDTreeIgnore = ['\.pyc$', '__pycache__']
 let NERDTreeShowHidden = 1
-
+let NERDTreeIgnore = ['\.pyc$', '__pycache__']
+let NERDTreeRespectWildIgnore = 1
 
 
 " Keyboard Shortcuts
 """"""""""""""""""""
 
 " Prevent common mistake of pressing q: instead :q
-map q: :q
+nnoremap q: :q
 
 " Y yanks from the cursor to the end of line as
 " expected. See :help Y.
@@ -392,18 +409,18 @@ nnoremap <A-j> :m .+1<CR>
 nnoremap <A-k> :m .-2<CR>
 inoremap <A-j> <Esc>:m .+1<CR>gi
 inoremap <A-k> <Esc>:m .-2<CR>gi
-vnoremap <A-j> :m '>+1<CR>gv
-vnoremap <A-k> :m '<-2<CR>gv
+xnoremap <A-j> :m '>+1<CR>gv
+xnoremap <A-k> :m '<-2<CR>gv
 
 
 " Use Ctrl-L to clear the highlighting of :set hlsearch.
 if maparg('<C-L>', 'n') ==# ''
-  nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+  nnoremap <silent> <C-L> :nohlsearch<C-R>=&diff?'<Bar>diffupdate':''<CR><CR><C-L>
 endif
 
 " Enable saving by `Ctrl-S`
 nnoremap <C-s> :w<CR>
-inoremap <C-s> <ESC>:w<CR>
+inoremap <C-s> <Cmd>w<CR>
 
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
@@ -414,8 +431,9 @@ command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 
 " pull up NERDTree
 nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap <leader>no :NERDTreeFocus<CR>
 " more NERDTree
-map <leader>nn :NERDTreeToggle<cr>
-map <leader>nb :NERDTreeFromBookmark<Space>
-map <leader>nf :NERDTreeFind<cr>
+nnoremap <leader>nn :NERDTreeToggle<cr>
+nnoremap <leader>nb :NERDTreeFromBookmark<Space>
+nnoremap <leader>nf :NERDTreeFind<cr>
 

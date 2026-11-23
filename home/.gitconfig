@@ -32,6 +32,7 @@
   directory = /storage/emulated/0/Documents/watt-obsidian
   directory = /storage/emulated/0/Documents/webshop
 	directory = /storage/emulated/0/Documents/minchin.pelican.readers.commonmark
+	directory = /home/william/docker/build/hass-mcp-logs
 [column]
 	ui = auto
 [branch]
